@@ -1,0 +1,96 @@
+[HIGH] RaceCondition: Potential race condition: Function "QueryIdRace::receive(Request)" writes to state variable "query_id" and sends messages. This variable is also accessed by: QueryIdRace::receive(Response). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:8:5:
+  7 | 
+  8 |     receive(msg: Request) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "QueryIdRace::receive(Response)" reads state variable "query_id" that is written by message-sending functions: QueryIdRace::receive(Request). The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:19:5:
+ 18 | 
+ 19 |     receive(msg: Response) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.
+
+[HIGH] RaceCondition: Potential race condition: Function "SharedStateRace::receive(Increment)" writes to state variable "counter" and sends messages. This variable is also accessed by: SharedStateRace::receive(GetCounter), SharedStateRace::receive(Reset). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:32:5:
+ 31 | 
+ 32 |     receive(msg: Increment) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Function "SharedStateRace::receive(Increment)" writes to state variable "lastSender" and sends messages. This variable is also accessed by: SharedStateRace::receive(Increment). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:32:5:
+ 31 | 
+ 32 |     receive(msg: Increment) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "SharedStateRace::receive(GetCounter)" reads state variable "counter" that is written by message-sending functions: SharedStateRace::receive(Increment). The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:43:5:
+ 42 | 
+ 43 |     receive(msg: GetCounter) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.
+
+[HIGH] RaceCondition: Potential race condition: Function "IndirectRace::processRequest" writes to state variable "nonce" and sends messages. This variable is also accessed by: IndirectRace::receive(VerifyNonce), IndirectRace::processRequest. Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:58:5:
+ 57 | 
+ 58 |     fun processRequest() {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "IndirectRace::receive(VerifyNonce)" reads state variable "nonce" that is written by message-sending functions: IndirectRace::processRequest. The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:71:5:
+ 70 | 
+ 71 |     receive(msg: VerifyNonce) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.
+
+[HIGH] RaceCondition: Potential race condition: Function "ComplexRace::receive(InitiateTransfer)" writes to state variable "stage" and sends messages. This variable is also accessed by: ComplexRace::receive(ConfirmTransfer), ComplexRace::receive(InitiateTransfer). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:103:5:
+102 | 
+103 |     receive(msg: InitiateTransfer) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Function "ComplexRace::receive(InitiateTransfer)" writes to state variable "participant" and sends messages. This variable is also accessed by: ComplexRace::receive(ConfirmTransfer), ComplexRace::receive(InitiateTransfer). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:103:5:
+102 | 
+103 |     receive(msg: InitiateTransfer) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Function "ComplexRace::receive(InitiateTransfer)" writes to state variable "amount" and sends messages. This variable is also accessed by: ComplexRace::receive(ConfirmTransfer), ComplexRace::receive(InitiateTransfer). Other messages may arrive and modify this state between send and response.
+test/detectors/RaceCondition.tact:103:5:
+102 | 
+103 |     receive(msg: InitiateTransfer) {
+    |     ^
+Help: Consider using local variables or message-specific storage instead of shared state for values that must remain consistent across async message flows.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "ComplexRace::receive(ConfirmTransfer)" reads state variable "stage" that is written by message-sending functions: ComplexRace::receive(InitiateTransfer). The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:119:5:
+118 | 
+119 |     receive(msg: ConfirmTransfer) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "ComplexRace::receive(ConfirmTransfer)" reads state variable "participant" that is written by message-sending functions: ComplexRace::receive(InitiateTransfer). The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:119:5:
+118 | 
+119 |     receive(msg: ConfirmTransfer) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.
+
+[HIGH] RaceCondition: Potential race condition: Receiver "ComplexRace::receive(ConfirmTransfer)" reads state variable "amount" that is written by message-sending functions: ComplexRace::receive(InitiateTransfer). The value may change between when it was set and when this receiver reads it.
+test/detectors/RaceCondition.tact:119:5:
+118 | 
+119 |     receive(msg: ConfirmTransfer) {
+    |     ^
+Help: Pass necessary data as part of the message instead of relying on shared state that can change.
+This pattern is particularly dangerous with query_id or nonce values that must match between request and response.

@@ -541,6 +541,13 @@ export const BuiltInDetectors: Record<string, DetectorEntry> = {
         (module) => new module.DivisionByZero(ctx),
       ),
     enabledByDefault: true,
+  },
+  RaceCondition: {
+    loader: (ctx: MistiContext) =>
+      import("./builtin/raceCondition").then(
+        (module) => new module.RaceCondition(ctx),
+      ),
+    enabledByDefault: true,
   }
 };
 
