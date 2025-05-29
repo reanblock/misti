@@ -528,6 +528,20 @@ export const BuiltInDetectors: Record<string, DetectorEntry> = {
       ),
     enabledByDefault: true,
   },
+  ImplicitInit: {
+    loader: (ctx: MistiContext) =>
+      import("./builtin/implicitInit").then(
+        (module) => new module.ImplicitInit(ctx),
+      ),
+    enabledByDefault: true,
+  },
+  DivisionByZero: {
+    loader: (ctx: MistiContext) =>
+      import("./builtin/divisionByZero").then(
+        (module) => new module.DivisionByZero(ctx),
+      ),
+    enabledByDefault: true,
+  }
 };
 
 /**
